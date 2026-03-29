@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Windows.h>
 #include <iomanip>
 #include <vector>
 #include <thread>
@@ -64,6 +65,10 @@ void print_main_info(const vector<Variants>& variants) {
 
 
 int main() {
+
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
     vector<Variants> variants = { 1000, 10000, 100000, 1000000 };
 
     mt19937 gen;
