@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iomanip>
 #include <thread>
 #include <mutex>
@@ -140,7 +140,25 @@ void drawRowProgress(size_t threadNumber) {
 
 
 int main() {
-    system("clear");
+    SetConsoleOutputCP(65001);  // UTF-8
+    SetConsoleCP(65001);
+
+    // Отключаем буферизацию
+    setvbuf(stdout, nullptr, _IONBF, 0);
+
+    // Очищаем консоль (Windows)
+    system("cls");
+
+    // Устанавливаем шрифт, поддерживающий Unicode (опционально)
+    CONSOLE_FONT_INFOEX cfi;
+    cfi.cbSize = sizeof(cfi);
+    cfi.nFont = 0;
+    cfi.dwFontSize.X = 8;
+    cfi.dwFontSize.Y = 16;
+    cfi.FontFamily = FF_DONTCARE;
+    cfi.FontWeight = FW_NORMAL;
+    wcscpy_s(cfi.FaceName, L"Consolas");
+    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
     int threadQuant{ 5 };
 
@@ -158,3 +176,4 @@ int main() {
 
     return 0;
 }
+
